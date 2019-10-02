@@ -1,3 +1,5 @@
+//this program makes each newly created node's next to point to the next node and it obviously has to involve recursion.
+
 #include <stdio.h>
 #include <stdlib.h>
 
