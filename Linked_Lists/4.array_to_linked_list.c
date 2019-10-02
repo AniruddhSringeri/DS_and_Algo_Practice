@@ -1,3 +1,5 @@
+//This program takes the elements as input from user, stores in array and then converts it into a linked list.
+
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,3 +1,5 @@
+//Uses recursion to input the linked list elements and store them in nodes with the links pointing to the following node recursively, thus creating a linked list.
+
 #include <stdio.h>
 #include <stdlib.h>
 
