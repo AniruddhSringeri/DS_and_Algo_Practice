@@ -1,4 +1,6 @@
-//This program has a function insertfront().
+//Generally, to change a variable X in a function(without returning the changed variable from the function and assigning it to the original variable in the caller), you would have to pass *X.
+//Therefore, to change a pointer *X, pass **X to the function.
+//This pointer to the head pointer can be called the reference pointer.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,14 +30,12 @@ struct node* makelist(int arr[], int n)
     return head;
 }
 
-struct node* insertFront(struct node* head, int item)
+void insertfront(struct node** headref, int item)
 {
-    if (head == NULL) return head;
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    newNode->data = item;
-    newNode->next = head;
-    head = newNode;
-    return head;
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = item;
+    newnode->next = *headref;
+    *headref = newnode;
 }
 
 void printlist(struct node* head)
@@ -86,7 +86,7 @@ int main()
                     case 2: {
                         printf("Enter element to be inserted:   ");
                         scanf("%d", &item);
-                        head = insertFront(head, item);
+                        insertfront(&head, item);
                         if(head == NULL) printf("No linked list to insert to!!!\n");
                         else printf("Element %d inserted at front of linked list.\n", item);
                         break;
@@ -107,3 +107,4 @@ int main()
     } while(1);
     return 0;
 }
+
