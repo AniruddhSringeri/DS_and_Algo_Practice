@@ -1,4 +1,7 @@
 //This program has a function insertfront().
+//Has a struct node* insertfront() function, i.e, it returns a node.
+//Therefore, there is no necessity to use a double pointer(pointer to pointer)(**ptr).
+//It would have to be used to implement a void insertfront() function, since any changes made to the local variable would not be reflected in the variable in the caller function.
 
 #include <stdio.h>
 #include <stdlib.h>
