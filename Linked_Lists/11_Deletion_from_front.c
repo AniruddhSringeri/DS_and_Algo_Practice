@@ -1,3 +1,5 @@
+//contains deletion from front
+
 #include <stdio.h>
 #include <stdlib.h>
 
