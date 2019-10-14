@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 struct node
 {
     int data;
@@ -11,46 +12,55 @@ struct node* getnode(int item)
     struct node* newnode = (struct node*)malloc(sizeof(struct node));
     newnode->data = item;
     newnode->next = NULL;
-    if(newnode!=NULL)
+    if(newnode)
         return newnode;
     else
     {
-        printf("Memory could not be allocated\n");
+        printf("Memory could not be allocated.\n");
         exit(0);
     }
 }
 
-struct node* push(struct node* head, int item)
+struct node* enqueue(struct node* head, int item)
 {
+    struct node* ptr = head;
     struct node* newnode = getnode(item);
-    newnode->next = head;
-    head = newnode;
+    if(ptr == NULL)
+    {
+        head = newnode;
+        return head;
+    }
+    while(ptr->next)
+    {
+        ptr = ptr->next;
+    }
+    ptr->next = newnode;
     return head;
 }
 
-struct node* pop(struct node* head)
+struct node* dequeue(struct node* head)
 {
     if(head == NULL)
     {
-        printf("Stack Underflow:(\n");
+        printf("Queue Underflow\n");
         return head;
     }
-    struct node* temp = head;
-    printf("The popped element is %d.\n", temp->data);
+    struct node* ptr = head;
+    printf("The deleted element is %d\n", ptr->data);
     head = head->next;
-    free(temp);
+    free(ptr);
     return head;
 }
 
 void display(struct node* head)
 {
-    struct node* ptr = head;
-    if(ptr == NULL)
+    if(head == NULL)
     {
-        printf("The stack is empty.\n");
+        printf("Queue is empty.\n");
         return;
     }
-    printf("The stack(from top to bottom) is:   ");
+    struct node* ptr = head;
+    printf("The contents of queue are:  ");
     while(ptr)
     {
         printf("%d, ", ptr->data);
@@ -62,44 +72,45 @@ void display(struct node* head)
 int main()
 {
     struct node* head = NULL;
-    int item, ch, size, count = 0;
-    printf("Stack program: \n");
-    printf("Enter size of stack:  ");
+    int item, size, count = 0, ch;
+    printf("Queue using linked list.\nEnter the size of queue:  ");
     scanf("%d", &size);
     do
     {
-        printf("Enter your choice:  \n1: Push\n2: Pop\n3: Display stack\n9999: Exit program\n");
+        printf("Enter\n1: Enqueue\n2: Dequeue\n3: Display queue\n9999: Exit\nYour choice:  ");
         scanf("%d", &ch);
         switch(ch)
         {
             case 1: {
-                printf("Enter item to be pushed:  ");
+                printf("Enter the element to be enqueued:  ");
                 scanf("%d", &item);
                 if(count == size)
                 {
-                    printf("Stack Overflow\n");
-                    break;
+                    printf("Queue Overflow\n");
                 }
                 count++;
-                head = push(head, item);
+                head = enqueue(head, item);
                 break;
             }
             case 2: {
-                head = pop(head);
-                if(count!=0)
+                head = dequeue(head);
+                if(head != NULL)
                 {
                     count--;
-                }
+                } 
                 break;
             }
             case 3: {
                 display(head);
                 break;
             }
-            case 9999: exit(0);
-            default: printf("Invalid input.\n");
+            case 9999: {
+                exit(0);
+            }
+            default: {
+                printf("Invalid input.\n");
+            }
         }
     } while(1);
     return 0;
 }
-
